@@ -1,0 +1,1 @@
+"""Availability rules domain package."""

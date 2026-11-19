@@ -1,0 +1,1 @@
+"""Staff schedule domain package."""

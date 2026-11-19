@@ -1,0 +1,219 @@
+:root {
+  color: #172033;
+  background: #f6f8fb;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 10;
+  border-radius: 4px;
+  background: #172033;
+  color: #fff;
+  padding: 0.6rem 0.8rem;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid #d9e2ef;
+  background: #fff;
+  padding: 1rem clamp(1rem, 4vw, 2rem);
+}
+
+.topbar h1,
+.banner h2,
+.module-card h3 {
+  margin: 0;
+}
+
+.topbar h1 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.eyebrow {
+  margin: 0 0 0.2rem;
+  color: #516079;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.persona-pill,
+.tag {
+  border: 1px solid #b9c6d8;
+  border-radius: 999px;
+  color: #33435c;
+  padding: 0.3rem 0.55rem;
+  white-space: nowrap;
+}
+
+.theme-toggle {
+  border: 1px solid #9eadc2;
+  border-radius: 6px;
+  background: #172033;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.45rem 0.75rem;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(12rem, 16rem) 1fr;
+  min-height: calc(100vh - 81px);
+}
+
+.sidebar {
+  border-right: 1px solid #d9e2ef;
+  background: #eef3f8;
+  padding: 1rem;
+}
+
+.sidebar nav {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sidebar a {
+  border-radius: 6px;
+  color: #243148;
+  padding: 0.6rem 0.7rem;
+  text-decoration: none;
+}
+
+.sidebar a:hover,
+.sidebar a:focus {
+  background: #fff;
+  outline: none;
+}
+
+.content {
+  padding: clamp(1rem, 4vw, 2rem);
+}
+
+.banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 20rem);
+  gap: 1rem;
+  align-items: stretch;
+  margin-bottom: 1.25rem;
+}
+
+.banner h2 {
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  max-width: 15ch;
+}
+
+.banner p {
+  max-width: 62ch;
+}
+
+.status-card,
+.module-card {
+  border: 1px solid #d5dfeb;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgb(23 32 51 / 8%);
+}
+
+.status-card {
+  display: grid;
+  align-content: center;
+  gap: 0.45rem;
+  min-height: 10rem;
+  padding: 1rem;
+}
+
+.status-card span {
+  font-weight: 700;
+}
+
+.status-ok {
+  border-color: #72b7a7;
+}
+
+.status-error {
+  border-color: #df8f79;
+}
+
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+}
+
+.module-card {
+  display: grid;
+  gap: 0.75rem;
+  min-height: 11rem;
+  padding: 1rem;
+}
+
+.module-card p {
+  margin: 0;
+  color: #516079;
+}
+
+@media (max-width: 760px) {
+  .topbar,
+  .topbar-actions,
+  .banner {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+  }
+
+  .topbar,
+  .topbar-actions {
+    flex-direction: column;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px solid #d9e2ef;
+  }
+
+  .sidebar nav {
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+}
