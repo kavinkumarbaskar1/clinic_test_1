@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
 from app.core.errors import register_exception_handlers
+from app.core.maintenance import MaintenanceState, get_maintenance_state
 
 settings = get_settings()
 
@@ -40,3 +41,15 @@ async def health_check() -> dict[str, str]:
         "service": settings.app_name,
         "version": settings.app_version,
     }
+
+
+@app.get(
+    "/api/maintenance-state",
+    response_model=MaintenanceState,
+    tags=["system"],
+    summary="Get scheduling maintenance state",
+    description="Returns a safe patient-facing maintenance message.",
+)
+async def maintenance_state() -> MaintenanceState:
+    """Return whether patient scheduling completion should be blocked."""
+    return get_maintenance_state()
