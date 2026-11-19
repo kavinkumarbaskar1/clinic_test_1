@@ -16,3 +16,11 @@ class Base(DeclarativeBase):
     """Base class for all SQLAlchemy models."""
 
     metadata = MetaData(naming_convention=NAMING_CONVENTION)
+
+
+def _register_model_modules() -> None:
+    """Import model modules so their tables are attached to metadata."""
+    import app.audit.models  # noqa: F401
+
+
+_register_model_modules()
