@@ -6,8 +6,10 @@ import Button from './components/ui/Button.jsx';
 import Card from './components/ui/Card.jsx';
 import Dialog from './components/ui/Dialog.jsx';
 import Field from './components/ui/Field.jsx';
+import MaintenanceBanner from './components/ui/MaintenanceBanner.jsx';
 import Tag from './components/ui/Tag.jsx';
 import { getHealth } from './services/apiClient.js';
+import { getMaintenanceState } from './services/maintenanceApi.js';
 import './styles/theme.css';
 
 const statusLabels = {
@@ -41,6 +43,10 @@ export default function App() {
     state: 'idle',
     detail: 'Waiting for the backend health endpoint.',
   });
+  const [maintenanceState, setMaintenanceState] = useState({
+    active: false,
+    message: '',
+  });
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -51,8 +57,8 @@ export default function App() {
   useEffect(() => {
     let isCurrent = true;
 
-    getHealth()
-      .then((health) => {
+    Promise.all([getHealth(), getMaintenanceState()])
+      .then(([health, maintenance]) => {
         if (!isCurrent) {
           return;
         }
@@ -60,6 +66,10 @@ export default function App() {
         setApiStatus({
           state: 'ok',
           detail: `${health.service} ${health.version} is ready.`,
+        });
+        setMaintenanceState({
+          active: Boolean(maintenance.active),
+          message: maintenance.message,
         });
       })
       .catch(() => {
@@ -70,6 +80,10 @@ export default function App() {
         setApiStatus({
           state: 'error',
           detail: 'Start the FastAPI server to connect the baseline app.',
+        });
+        setMaintenanceState({
+          active: false,
+          message: '',
         });
       });
 
@@ -86,6 +100,10 @@ export default function App() {
       onThemeToggle={() => setIsDarkTheme((currentTheme) => !currentTheme)}
     >
       <div className="dashboard-stack">
+        {maintenanceState.active && (
+          <MaintenanceBanner message={maintenanceState.message} />
+        )}
+
         <Banner
           actions={
             <Button onClick={() => setIsDialogOpen(true)} variant="secondary">
